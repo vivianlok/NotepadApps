@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference notesDatabaseReference;
     List<NotesFirebaseItems> notesFirebaseItemList = new ArrayList<>();
       Button SubmitButton;
+      Button goToNotesButton;
       EditText descriptionET;
     String userID;
     String repliedMessage=" ";
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         descriptionET = findViewById(R.id.descriptionET);
         SubmitButton = findViewById(R.id.SubmitButton);
+        goToNotesButton = findViewById(R.id.goToNotesButton);
 
         if (user != null){
             userID = user.getUid();
@@ -109,7 +114,12 @@ public class MainActivity extends AppCompatActivity {
         }; //mAuthStateListener end
 
 
-
+        goToNotesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAdapterPage();
+            }
+        });
 
 
         SubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +150,36 @@ public class MainActivity extends AppCompatActivity {
 //                new NotesFirebaseItems(descriptionET.getText().toString());
 //        notesDatabaseReference.child("notes").push().setValue(notesFirebaseItems);
 //    }
+
+    //Menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.AdapterItem:
+                goToAdapterPage();
+                return true;
+            case R.id.logouttMenuItem:
+                FirebaseAuth.getInstance().signOut();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }//End of Menu
+
+    private void goToAdapterPage() {
+
+        Intent goToAdapter = new Intent(MainActivity.this,NotesActivity.class);
+        startActivity(goToAdapter);
+    }
 
     @Override
     public void onResume() {

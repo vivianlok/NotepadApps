@@ -5,9 +5,7 @@ public class NotesFirebaseItems {
     String descriptionET;
     String repliedMessage;
 
-    public  NotesFirebaseItems(String s){
-
-    }
+    public  NotesFirebaseItems(){ }
 
     public NotesFirebaseItems(String notesID, String descriptionET, String repliedMessage) {
         this.notesID = notesID;

@@ -75,7 +75,7 @@ public class NotesActivity extends AppCompatActivity {
 
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         postTextView = findViewById(R.id.postTextView);
-        //replyEditText = findViewById(R.id.replyEditText);
+        replyEditText = findViewById(R.id.replyEditText);
 
         LinearLayoutManager noteLinearLayoutManager;
         noteLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
@@ -102,7 +102,7 @@ public class NotesActivity extends AppCompatActivity {
 //                    NotesFirebaseItems notesFirebaseItems
 //                            = new NotesFirebaseItems(
 //                            notesID,
-//                            descriptionET.getText().toString(),
+//                            descriptionET,
 //                            repliedMessage
 //                           // replyId,
 //                            //user.getDisplayName(),
@@ -127,11 +127,11 @@ public class NotesActivity extends AppCompatActivity {
 
     public void attachDatabaseReadListener() {
 
-        final ChildEventListener childEventListener =
+
                 notesDatabaseReference
                 .child(userId)
                 //.child("replies")
-                .child("noteID")
+               // .child("noteID")
                 //.orderByChild("quantity")
                 //.equalTo(8)
                 .addChildEventListener(new ChildEventListener() {

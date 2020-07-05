@@ -7,18 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notepadapps.NotesDetailActivity;
 import com.example.notepadapps.NotesActivity;
 import com.example.notepadapps.R;
 import com.example.notepadapps.database.NotesFirebaseItems;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -86,9 +86,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
             //when daily check in is clicked
+                Intent goToClickedNote = new Intent(activity, NotesDetailActivity.class);
+                goToClickedNote.putExtra("notesID", notesFirebaseItems.getNotesID());
+                goToClickedNote.putExtra("description", notesFirebaseItems.getDescriptionET());
+                activity.startActivity(goToClickedNote);
                 //This one is from activity_notes.xml replyET
-                goToNotesActivity(notesFirebaseItems);
-                NotesActivity.replyEditText.setText("@" + notesFirebaseItems.getDescriptionET());
+                //goToNotesActivity(notesFirebaseItems);
+                //NotesActivity.replyEditText.setText("@" + notesFirebaseItems.getDescriptionET());
                 //this one comes from item_notes.xml
                 //NotesActivity.replyingTV = notesFirebaseItems.getRepliedMessage();
             }
@@ -98,6 +102,25 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 //            public void onClick(View v) {
 //                NotesActivity.replyEditText.setText("@" + notesFirebaseItems.getDescriptionET());
 //                NotesActivity.replyingTV = notesFirebaseItems.getRepliedMessage();
+//            }
+//        });
+
+//        holder.replyButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                notesDatabaseReference
+//                        .child(userId)
+//                        .child(notesFirebaseItems.getNotesID())
+//                        .child("repliedMessage")
+//                        .setValue(NotesActivity.replyEditText.getText().toString())
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//
+//                                Toast.makeText(activity, "Reply successfully added!", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
 //            }
 //        });
     } // End of onBindViewHolder
@@ -117,7 +140,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private void notesMethod(final NotesFirebaseItems notesFirebaseItems, ViewHolder holder) {
 
         holder.notesTV.setText("Note: " + notesFirebaseItems.getDescriptionET());
-        holder.replyingTV.setText("Note: ");
+        //holder.replyingTV.setText("Note: ");
 
     }
 
@@ -145,7 +168,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             // Initialize all properties
 
             notesTV = itemView.findViewById(R.id.notesTV);
-            replyingTV = itemView.findViewById(R.id.replyingTV);
+            //replyingTV = itemView.findViewById(R.id.replyingTV);
 //            replyCardViewLayout = itemView.findViewById(R.id.replyCardViewLayout);
             replyButton = itemView.findViewById(R.id.replyButton);
 

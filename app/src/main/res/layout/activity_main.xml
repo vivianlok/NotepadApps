@@ -76,6 +76,18 @@
                         android:text="Ask Now"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
+                        <Button
+                            android:id="@+id/goToNotesButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/descriptionET"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Go to Notes"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
                 </LinearLayout>
 
 
