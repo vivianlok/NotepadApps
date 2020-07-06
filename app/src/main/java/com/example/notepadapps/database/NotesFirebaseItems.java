@@ -4,13 +4,19 @@ public class NotesFirebaseItems {
     String notesID;
     String descriptionET;
     String repliedMessage;
+    String date;
+    String time;
+    String fullName;
 
     public  NotesFirebaseItems(){ }
 
-    public NotesFirebaseItems(String notesID, String descriptionET, String repliedMessage) {
+    public NotesFirebaseItems(String notesID, String descriptionET, String repliedMessage, String date, String time, String fullName) {
         this.notesID = notesID;
         this.descriptionET = descriptionET;
         this.repliedMessage = repliedMessage;
+        this.date = date;
+        this.time = time;
+        this.fullName = fullName;
     }
 
     public String getNotesID() {
@@ -35,5 +41,29 @@ public class NotesFirebaseItems {
 
     public void setRepliedMessage(String repliedMessage) {
         this.repliedMessage = repliedMessage;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

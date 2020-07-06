@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference notesDatabaseReference;
     List<NotesFirebaseItems> notesFirebaseItemList = new ArrayList<>();
-      Button SubmitButton;
-      Button goToNotesButton;
-      EditText descriptionET;
+    Button SubmitButton;
+    Button goToNotesButton;
+    EditText descriptionET;
     String userID;
-    String repliedMessage=" ";
+    String repliedMessage = " ";
     String notesID;
-//    public static EditText descriptionET;
+    //    public static EditText descriptionET;
     String currentDate, currentTime;
     public static final int RC_SIGN_IN = 1;
     //final String notesID = notesDatabaseReference.push().getKey();
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         notesDatabaseReference = firebaseDatabase.getReference().child("notes");
 
-        currentDate  = new SimpleDateFormat("E, dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+        currentDate = new SimpleDateFormat("E, dd-MMM-yyyy", Locale.getDefault()).format(new Date());
         currentTime = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault()).format(new Date());
 
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         SubmitButton = findViewById(R.id.SubmitButton);
         goToNotesButton = findViewById(R.id.goToNotesButton);
 
-        if (user != null){
+        if (user != null) {
             userID = user.getUid();
             //setUserDetails();
         }
@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 } else {
-
 
 
                     startActivityForResult(
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 //performActionForSubmit();
                 //go to next page
                 final String notesID = notesDatabaseReference.push().getKey();
-                NotesFirebaseItems notesFirebaseItems=
+                NotesFirebaseItems notesFirebaseItems =
                         new NotesFirebaseItems(
                                 notesID,
                                 descriptionET.getText().toString(),
@@ -138,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         );
                 notesDatabaseReference.child(userID).child(notesID).setValue(notesFirebaseItems);
                 Intent goToNotesActivity = new Intent(MainActivity.this, NotesActivity.class);
-                goToNotesActivity.putExtra("notesID",notesID);
+                goToNotesActivity.putExtra("notesID", notesID);
                 startActivity(goToNotesActivity);
             }
         });
@@ -158,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.home_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToAdapterPage() {
 
-        Intent goToAdapter = new Intent(MainActivity.this,NotesActivity.class);
+        Intent goToAdapter = new Intent(MainActivity.this, NotesActivity.class);
         startActivity(goToAdapter);
     }
 

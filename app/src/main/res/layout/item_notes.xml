@@ -15,11 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="replyID Here"/>
+
         </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
@@ -31,14 +27,38 @@
             android:layout_height="300dp"
             android:src="@drawable/note_image"/>
             <TextView
+                android:id="@+id/dateTV"
+                android:rotation="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginBottom="80dp"
+                android:text="7/5/2020"
+                android:textSi7ze="17dp" />
+            <TextView
+                android:id="@+id/timeTV"
+                android:rotation="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginBottom="60dp"
+                android:text="11:11:11"
+                android:textSi7ze="17dp" />
+            <TextView
                 android:id="@+id/notesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:rotation="-10"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="30dp"
                 android:text="Notes Here"
                 android:textSize="17dp" />
+
         </FrameLayout>
     <Button
         android:id="@+id/replyButton"

@@ -81,7 +81,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 //        holder.replyingTV.setText(notesFirebaseItems.getRepliedMessage());
         //holder.notesTV.setText(notesFirebaseItems.getDescriptionET());
 
+        //This is where you define your holders
         notesMethod(notesFirebaseItems, holder);
+
         holder.replyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +142,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private void notesMethod(final NotesFirebaseItems notesFirebaseItems, ViewHolder holder) {
 
         holder.notesTV.setText("Note: " + notesFirebaseItems.getDescriptionET());
+        holder.dateTV.setText(notesFirebaseItems.getDate());
+        holder.timeTV.setText(notesFirebaseItems.getTime());
         //holder.replyingTV.setText("Note: ");
 
     }
@@ -155,7 +159,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // Declare properties for question items
-        public TextView notesTV,replyingTV;
+        public TextView notesTV,replyingTV, timeTV,dateTV;
         //public CardView replyCardViewLayout;
         public Button replyButton;
 
@@ -171,7 +175,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             //replyingTV = itemView.findViewById(R.id.replyingTV);
 //            replyCardViewLayout = itemView.findViewById(R.id.replyCardViewLayout);
             replyButton = itemView.findViewById(R.id.replyButton);
-
+            dateTV = itemView.findViewById(R.id.dateTV);
 
         }
     } // End of ViewHolder extends RecyclerView.ViewHolder
