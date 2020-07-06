@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String repliedMessage = " ";
     String notesID;
     //    public static EditText descriptionET;
-    String currentDate, currentTime;
+    String currentDate, currentTime, fullName;
     public static final int RC_SIGN_IN = 1;
     //final String notesID = notesDatabaseReference.push().getKey();
 
@@ -130,11 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 //go to next page
                 final String notesID = notesDatabaseReference.push().getKey();
                 NotesFirebaseItems notesFirebaseItems =
-                        new NotesFirebaseItems(
-                                notesID,
-                                descriptionET.getText().toString(),
-                                repliedMessage
-                        );
+                        new NotesFirebaseItems(notesID, descriptionET.getText().toString(), repliedMessage, currentDate, currentTime, fullName = " ");
                 notesDatabaseReference.child(userID).child(notesID).setValue(notesFirebaseItems);
                 Intent goToNotesActivity = new Intent(MainActivity.this, NotesActivity.class);
                 goToNotesActivity.putExtra("notesID", notesID);

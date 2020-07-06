@@ -91,6 +91,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 Intent goToClickedNote = new Intent(activity, NotesDetailActivity.class);
                 goToClickedNote.putExtra("notesID", notesFirebaseItems.getNotesID());
                 goToClickedNote.putExtra("description", notesFirebaseItems.getDescriptionET());
+                goToClickedNote.putExtra("time", notesFirebaseItems.getTime());
+                goToClickedNote.putExtra("date", notesFirebaseItems.getDate());
                 activity.startActivity(goToClickedNote);
                 //This one is from activity_notes.xml replyET
                 //goToNotesActivity(notesFirebaseItems);
@@ -175,6 +177,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             //replyingTV = itemView.findViewById(R.id.replyingTV);
 //            replyCardViewLayout = itemView.findViewById(R.id.replyCardViewLayout);
             replyButton = itemView.findViewById(R.id.replyButton);
+            timeTV = itemView.findViewById(R.id.timeTV);
             dateTV = itemView.findViewById(R.id.dateTV);
 
         }
