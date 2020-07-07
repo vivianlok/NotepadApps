@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.notepadapps.database.PhotosFirebaseItems;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +29,7 @@ public class PhotoActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference usersDetailsReference, questionReference;
+    DatabaseReference  photoAlbumReference;
 
     private FirebaseApp app;
     private FirebaseStorage storage;
@@ -43,6 +45,7 @@ public class PhotoActivity extends AppCompatActivity {
         firebaseDatabase  = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         currentUser = mFirebaseAuth.getCurrentUser();
+        photoAlbumReference = firebaseDatabase.getReference().child("Albums");
 
         app = FirebaseApp.getInstance();
         storage =FirebaseStorage.getInstance(app);
@@ -109,7 +112,28 @@ public class PhotoActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        String   downloadedUriForAttachment = uri.toString();
+                        String   downloadedUriForPhoto = uri.toString();
+
+                        String photoId = photoAlbumReference.child(currentUser.getUid()).push().getKey();
+
+                        PhotosFirebaseItems photosFirebaseItems
+                                = new PhotosFirebaseItems(
+                                        photoId,
+                                downloadedUriForPhoto
+                        );
+
+                        photoAlbumReference
+                                .child(currentUser.getUid())
+                                .child(photoId)
+                                .setValue(photosFirebaseItems)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                Toast.makeText(PhotoActivity.this,
+                                        "DOne Successfully!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
             }
