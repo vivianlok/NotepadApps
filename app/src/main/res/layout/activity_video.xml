@@ -54,7 +54,7 @@
 
 
                     <Button
-                        android:id="@+id/UploadPhotoButton"
+                        android:id="@+id/UploadVideoButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -65,7 +65,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
                     <Button
-                        android:id="@+id/goToPhotoAlbumButton"
+                        android:id="@+id/goToVideoAlbumButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

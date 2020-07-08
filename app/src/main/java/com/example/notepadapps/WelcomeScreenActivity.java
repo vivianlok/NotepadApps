@@ -48,7 +48,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         goToVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToVideoButton = new Intent(WelcomeScreenActivity.this, VideoAlbumActivity.class);
+                Intent goToVideoButton = new Intent(WelcomeScreenActivity.this, VideoActivity.class);
                 startActivity(goToVideoButton);
             }
         });

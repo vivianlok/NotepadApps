@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.notepadapps.database.PhotosFirebaseItems;
+import com.example.notepadapps.database.VideosFirebaseItems;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,14 +22,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class VideoActivity extends AppCompatActivity {
-    Button UploadPhotoButton,goToPhotoAlbumButton;
+    Button UploadVideoButton,goToVideoAlbumButton;
 
     //Firebase
     private FirebaseUser currentUser;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference  photoAlbumReference;
+    DatabaseReference  videoAlbumReference;
 
     private FirebaseApp app;
     private FirebaseStorage storage;
@@ -40,32 +40,32 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo);
+        setContentView(R.layout.activity_video);
 
         firebaseDatabase  = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         currentUser = mFirebaseAuth.getCurrentUser();
-        photoAlbumReference = firebaseDatabase.getReference().child("Albums");
+        videoAlbumReference = firebaseDatabase.getReference().child("Albums");
 
         app = FirebaseApp.getInstance();
         storage =FirebaseStorage.getInstance(app);
 
 
-        UploadPhotoButton = findViewById(R.id.UploadPhotoButton);
-        goToPhotoAlbumButton = findViewById(R.id.goToPhotoAlbumButton);
+        UploadVideoButton = findViewById(R.id.UploadVideoButton);
+        goToVideoAlbumButton = findViewById(R.id.goToVideoAlbumButton);
 
-        UploadPhotoButton.setOnClickListener(new View.OnClickListener() {
+        UploadVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectAttachment();
             }
         });
 
-        goToPhotoAlbumButton.setOnClickListener(new View.OnClickListener() {
+        goToVideoAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent PhotoAlbumActivity = new Intent(VideoActivity.this, PhotoAlbumActivity.class);
-                startActivity(PhotoAlbumActivity);
+                Intent VideoAlbumActivity = new Intent(VideoActivity.this, VideoAlbumActivity.class);
+                startActivity(VideoAlbumActivity);
             }
         });
 
@@ -93,18 +93,18 @@ public class VideoActivity extends AppCompatActivity {
 
             dataUri = data.getData(); //getting path
 
-            UploadPhotoButton.setText("Selected");
-            UploadPhotoButton.setTextColor(Color.BLUE);
+            UploadVideoButton.setText("Selected");
+            UploadVideoButton.setTextColor(Color.BLUE);
 
             if (dataUri != null){
                 StorageReference storageReference = storage
-                        .getReference("Albums").child(dataUri.getLastPathSegment()); //getting pic - last path of image
+                        .getReference("Videos").child(dataUri.getLastPathSegment()); //getting pic - last path of image
                 storageReference.putFile(dataUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        UploadPhotoButton.setText("Selected");
-                        UploadPhotoButton.setTextColor(Color.BLUE);
+                        UploadVideoButton.setText("Selected");
+                        UploadVideoButton.setTextColor(Color.BLUE);
                     }
                 });
 
@@ -112,20 +112,20 @@ public class VideoActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        String   downloadedUriForPhoto = uri.toString();
+                        String   downloadedUriForVideo = uri.toString();
 
-                        String photoId = photoAlbumReference.child(currentUser.getUid()).push().getKey();
+                        String videoId = videoAlbumReference.child(currentUser.getUid()).push().getKey();
 
-                        PhotosFirebaseItems photosFirebaseItems
-                                = new PhotosFirebaseItems(
-                                        photoId,
-                                downloadedUriForPhoto
+                        VideosFirebaseItems videosFirebaseItems
+                                = new VideosFirebaseItems(
+                                        videoId,
+                                downloadedUriForVideo
                         );
 
-                        photoAlbumReference
+                        videoAlbumReference
                                 .child(currentUser.getUid())
-                                .child(photoId)
-                                .setValue(photosFirebaseItems)
+                                .child(videoId)
+                                .setValue(videosFirebaseItems)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
