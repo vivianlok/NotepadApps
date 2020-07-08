@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".PhotoAlbumActivity"
+    tools:context=".VideoAlbumActivity"
     android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_margin="12dp"
-            android:id="@+id/photoRecyclerView"
+            android:id="@+id/videoRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

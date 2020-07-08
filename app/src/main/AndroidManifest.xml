@@ -22,6 +22,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".NotesDetailActivity" />
         <activity android:name=".PhotoAlbumActivity" />
+        <activity android:name=".VideoAlbumActivity" />
+        <activity android:name=".VideoActivity" />
     </application>
 
 </manifest>

@@ -21,4 +21,11 @@
         android:textSize="30dp"
         android:layout_gravity="center"
         android:text="Go to PhotoStore"/>
+    <Button
+        android:id="@+id/goToVideoButton"
+        android:layout_width="400dp"
+        android:layout_height="80dp"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:text="Go to VideoStore"/>
 </LinearLayout>
