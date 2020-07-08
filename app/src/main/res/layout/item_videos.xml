@@ -27,8 +27,8 @@
             android:layout_width="350dp"
             android:layout_height="300dp"
             android:src="@drawable/frame"/>
-            <ImageView
-                android:id="@+id/videoImage"
+            <VideoView
+                android:id="@+id/videoView"
                 android:layout_width="300dp"
                 android:layout_height="225dp"
                 android:layout_marginTop="40dp"

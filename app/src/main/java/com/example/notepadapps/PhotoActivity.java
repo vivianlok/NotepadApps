@@ -2,6 +2,7 @@ package com.example.notepadapps;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -33,7 +34,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     private FirebaseApp app;
     private FirebaseStorage storage;
-
+    ProgressDialog progressDialog;
     Uri dataUri = null;
 
 
@@ -111,7 +112,7 @@ public class PhotoActivity extends AppCompatActivity {
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-
+                        progressDialog.dismiss();
                         String   downloadedUriForPhoto = uri.toString();
 
                         String photoId = photoAlbumReference.child(currentUser.getUid()).push().getKey();

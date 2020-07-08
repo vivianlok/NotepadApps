@@ -1,15 +1,18 @@
 package com.example.notepadapps;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.notepadapps.adapter.PhotoAdapter;
 import com.example.notepadapps.database.VideosFirebaseItems;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -36,6 +39,7 @@ public class VideoActivity extends AppCompatActivity {
 
     Uri dataUri = null;
 
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class VideoActivity extends AppCompatActivity {
         firebaseDatabase  = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         currentUser = mFirebaseAuth.getCurrentUser();
-        videoAlbumReference = firebaseDatabase.getReference().child("Albums");
+        videoAlbumReference = firebaseDatabase.getReference().child("Videos");
 
         app = FirebaseApp.getInstance();
         storage =FirebaseStorage.getInstance(app);
@@ -53,6 +57,11 @@ public class VideoActivity extends AppCompatActivity {
 
         UploadVideoButton = findViewById(R.id.UploadVideoButton);
         goToVideoAlbumButton = findViewById(R.id.goToVideoAlbumButton);
+
+        progressDialog = new ProgressDialog(VideoActivity.this);
+        progressDialog.setTitle("Uploading Video");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
 
         UploadVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +105,8 @@ public class VideoActivity extends AppCompatActivity {
             UploadVideoButton.setText("Selected");
             UploadVideoButton.setTextColor(Color.BLUE);
 
+            progressDialog.show();
+
             if (dataUri != null){
                 StorageReference storageReference = storage
                         .getReference("Videos").child(dataUri.getLastPathSegment()); //getting pic - last path of image
@@ -114,17 +125,17 @@ public class VideoActivity extends AppCompatActivity {
 
                         String   downloadedUriForVideo = uri.toString();
 
-                        String videoId = videoAlbumReference.child(currentUser.getUid()).push().getKey();
+                        String videoID = videoAlbumReference.child(currentUser.getUid()).push().getKey();
 
                         VideosFirebaseItems videosFirebaseItems
                                 = new VideosFirebaseItems(
-                                        videoId,
+                                videoID,
                                 downloadedUriForVideo
                         );
 
                         videoAlbumReference
                                 .child(currentUser.getUid())
-                                .child(videoId)
+                                .child(videoID)
                                 .setValue(videosFirebaseItems)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -132,6 +143,7 @@ public class VideoActivity extends AppCompatActivity {
 
                                 Toast.makeText(VideoActivity.this,
                                         "DOne Successfully!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         });
                     }
@@ -142,5 +154,15 @@ public class VideoActivity extends AppCompatActivity {
         }
 
     }//onActivityResult end
+
+    @Override
+    public void onBackPressed(){
+        if (progressDialog.isShowing()){
+
+            progressDialog.dismiss();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
 } //ENd of class

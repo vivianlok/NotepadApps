@@ -1,12 +1,14 @@
 package com.example.notepadapps.adapter;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -68,6 +70,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         final VideosFirebaseItems videosFirebaseItems
                 = VideosFirebaseItemsList.get(position);
 
@@ -75,9 +78,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
             if (currentUser != null){
 
-            Picasso.get()
-                    .load((videosFirebaseItems.getVideoUri()))
-                    .into(holder.videoImage);
+                Uri uri = Uri.parse(videosFirebaseItems.getVideoUri());
+                holder.videoView.setVideoURI(uri);
+                holder.videoView.start();
         }
         }
 
@@ -96,7 +99,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // Declare properties for question items
-        public ImageView videoImage;
+        public VideoView videoView;
         public  TextView timeTV;
 
         @RequiresApi(api = Build.VERSION_CODES.M)
@@ -107,7 +110,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
             // Initialize all properties
 
-            videoImage = itemView.findViewById(R.id.videoImage);
+            videoView = itemView.findViewById(R.id.videoView);
             timeTV = itemView.findViewById(R.id.timeTV);
         }
     } // End of ViewHolder extends RecyclerView.ViewHolder

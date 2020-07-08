@@ -1,5 +1,6 @@
 package com.example.notepadapps;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class VideoAlbumActivity extends AppCompatActivity {
 
     private FirebaseApp app;
     private FirebaseStorage storage;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -53,6 +55,12 @@ public class VideoAlbumActivity extends AppCompatActivity {
         noteLinearLayoutManager.setStackFromEnd(true);
 
         videoRecyclerView.setLayoutManager(noteLinearLayoutManager);
+
+        progressDialog = new ProgressDialog(VideoAlbumActivity.this);
+        progressDialog.setTitle("Loading Video");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
