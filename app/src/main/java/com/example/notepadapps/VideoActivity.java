@@ -53,8 +53,6 @@ public class VideoActivity extends AppCompatActivity {
 
         app = FirebaseApp.getInstance();
         storage =FirebaseStorage.getInstance(app);
-
-
         UploadVideoButton = findViewById(R.id.UploadVideoButton);
         goToVideoAlbumButton = findViewById(R.id.goToVideoAlbumButton);
 
@@ -108,9 +106,12 @@ public class VideoActivity extends AppCompatActivity {
             progressDialog.show();
 
             if (dataUri != null){
-                StorageReference storageReference = storage
-                        .getReference("Videos").child(dataUri.getLastPathSegment()); //getting pic - last path of image
-                storageReference.putFile(dataUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                StorageReference storageReference =
+                        storage
+                        .getReference("Videos") //get reference from Videos in Firebase
+                        .child(dataUri.getLastPathSegment()); //getting pic - last path of image
+                storageReference.putFile(dataUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -147,7 +148,7 @@ public class VideoActivity extends AppCompatActivity {
                             }
                         });
                     }
-                });
+                }); //End of storageReference getDownloadUri
             }
 
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".NotesDetailActivity"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="6dp"
+        app:cardCornerRadius="12dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_margin="9dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                android:src="@drawable/frame"/>
+            <ImageView
+                android:id="@+id/photoImage"
+                android:layout_width="300dp"
+                android:layout_height="225dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                />
+            <TextView
+                android:id="@+id/dateTV"
+                android:rotation="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginBottom="80dp"
+                android:text="7/5/2020"
+                android:textSize="17dp" />
+            <TextView
+                android:id="@+id/timeTV"
+                android:rotation="20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginBottom="60dp"
+                android:text="11:11:11"
+                android:textSize="17dp" />
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentsRecyclerView"/>
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Write your reply here..." />
+
+        <TextView
+            android:id="@+id/postTextView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Post"/>
+
+    </LinearLayout>
+    </RelativeLayout>

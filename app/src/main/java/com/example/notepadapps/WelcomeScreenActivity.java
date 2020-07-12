@@ -19,7 +19,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference usersDetailsReference;
 
-    Button goToNotesButton,goToPhotosButton,goToVideoButton;
+    Button goToNotesButton,goToPhotosButton,goToVideoButton,goToYouTubeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         goToNotesButton = findViewById(R.id.goToNotesButton);
         goToPhotosButton = findViewById(R.id.goToPhotosButton);
         goToVideoButton = findViewById(R.id.goToVideoButton);
+        goToYouTubeButton = findViewById(R.id.goToYouTubeButton);
 
         goToNotesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,14 @@ public class WelcomeScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goToVideoButton = new Intent(WelcomeScreenActivity.this, VideoActivity.class);
                 startActivity(goToVideoButton);
+            }
+        });
+
+        goToYouTubeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToYouTubeButton = new Intent(WelcomeScreenActivity.this, YoutubeUploadVideoActivity.class);
+                startActivity(goToYouTubeButton);
             }
         });
 

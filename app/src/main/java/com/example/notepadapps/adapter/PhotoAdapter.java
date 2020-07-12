@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notepadapps.NotesActivity;
 import com.example.notepadapps.NotesDetailActivity;
+import com.example.notepadapps.PhotoAlbumActivity;
+import com.example.notepadapps.PhotosDetailActivity;
 import com.example.notepadapps.R;
 import com.example.notepadapps.database.NotesFirebaseItems;
 import com.example.notepadapps.database.PhotosFirebaseItems;
@@ -88,11 +90,20 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                     .load((photosFirebaseItems.getPhotoUri()))
                     .into(holder.photoImage);
         }
-        }
+        } //End of storing photoImage uri
 
         holder.timeTV.setText(currentUser.getUid());
 
-
+        holder.replyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //when daily check in is clicked
+                Intent goToClickedPhoto = new Intent(activity, PhotoAlbumActivity.class);
+                goToClickedPhoto.putExtra("photoID", photosFirebaseItems.getPhotoID());
+                goToClickedPhoto.putExtra("photoUri", photosFirebaseItems.getPhotoUri());
+                activity.startActivity(goToClickedPhoto);
+            }
+        });
     } // End of onBindViewHolder
 
 
@@ -107,6 +118,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         // Declare properties for question items
         public ImageView photoImage;
         public  TextView timeTV;
+        public Button replyButton;
 
         @RequiresApi(api = Build.VERSION_CODES.M)
         public ViewHolder(View itemView) {
@@ -118,6 +130,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
             photoImage = itemView.findViewById(R.id.photoImage);
             timeTV = itemView.findViewById(R.id.timeTV);
+            replyButton = itemView.findViewById(R.id.replyButton);
         }
     } // End of ViewHolder extends RecyclerView.ViewHolder
 }

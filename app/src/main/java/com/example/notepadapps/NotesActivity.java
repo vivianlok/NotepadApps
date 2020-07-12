@@ -87,39 +87,6 @@ public class NotesActivity extends AppCompatActivity {
 
             userId = user.getUid();
         }
-//        postTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (TextUtils.isEmpty(replyEditText.getText().toString())) {
-//
-//                    Toast.makeText(NotesActivity.this, "Please enter a reply", Toast.LENGTH_SHORT).show();
-//                } else {
-//
-//                    //  notesDatabaseReference = firebaseDatabase.getReference().child("notes");
-//                   // String replyId = notesDatabaseReference.child(userId).push().getKey();
-//
-//                    NotesFirebaseItems notesFirebaseItems
-//                            = new NotesFirebaseItems(
-//                            notesID,
-//                            descriptionET,
-//                            repliedMessage
-//                           // replyId,
-//                            //user.getDisplayName(),
-//                           // replyEditText.getText().toString()
-//                    );
-//
-//                    notesDatabaseReference.child("notes").push().setValue(notesFirebaseItems).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//
-//                            replyEditText.setText("");
-//                        }
-//                    });
-//                }
-//            }
-//        }); //End of postTextView onclickListener
-
         attachDatabaseReadListener();
     }//End of oncreate method
 

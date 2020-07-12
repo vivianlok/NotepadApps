@@ -94,39 +94,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 goToClickedNote.putExtra("time", notesFirebaseItems.getTime());
                 goToClickedNote.putExtra("date", notesFirebaseItems.getDate());
                 activity.startActivity(goToClickedNote);
-                //This one is from activity_notes.xml replyET
-                //goToNotesActivity(notesFirebaseItems);
-                //NotesActivity.replyEditText.setText("@" + notesFirebaseItems.getDescriptionET());
-                //this one comes from item_notes.xml
-                //NotesActivity.replyingTV = notesFirebaseItems.getRepliedMessage();
             }
         });
-//        holder.replyCardViewLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NotesActivity.replyEditText.setText("@" + notesFirebaseItems.getDescriptionET());
-//                NotesActivity.replyingTV = notesFirebaseItems.getRepliedMessage();
-//            }
-//        });
-
-//        holder.replyButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                notesDatabaseReference
-//                        .child(userId)
-//                        .child(notesFirebaseItems.getNotesID())
-//                        .child("repliedMessage")
-//                        .setValue(NotesActivity.replyEditText.getText().toString())
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//
-//                                Toast.makeText(activity, "Reply successfully added!", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//            }
-//        });
     } // End of onBindViewHolder
 
     private void goToNotesActivity(NotesFirebaseItems notesFirebaseItems) {
