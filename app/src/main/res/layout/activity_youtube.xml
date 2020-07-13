@@ -44,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/questionTextView"
                 android:layout_marginTop="17dp"
-
                 app:cardCornerRadius="4dp">
 
                 <LinearLayout
@@ -75,6 +74,12 @@
                         android:text="Go to Video Album"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_margin="12dp"
+                        android:id="@+id/youtubeVideoRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
 

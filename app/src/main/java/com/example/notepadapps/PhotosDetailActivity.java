@@ -41,13 +41,13 @@ public class PhotosDetailActivity extends AppCompatActivity {
     DatabaseReference photoAlbumReference;
 
     String userID;
-    //List<PhotosFirebaseItems> photosFirebaseItemsList = new ArrayList<>();
+    List<PhotosFirebaseItems> photosFirebaseItemsList = new ArrayList<>();
     //RecyclerView photoRecyclerView;
     //RecyclerView.Adapter PhotoAdapter;
     ImageView photoImage;
     String photoID, photoUri;
     Intent getAllIntenets;
-    TextView notesTV,postTextView;
+    TextView postTextView;
     EditText commentEditText;
 
     List<CommentsFirebaseItems> commentsFirebaseItemsList = new ArrayList<>();
@@ -90,6 +90,10 @@ public class PhotosDetailActivity extends AppCompatActivity {
             photoID = getAllIntenets.getStringExtra("photoID");
             photoUri = getAllIntenets.getStringExtra("photoUri");
 
+            Picasso.get()
+                    .load(photoUri)
+                    .into(photoImage);
+
             //notesTV.setText(description);
 
         }
@@ -108,6 +112,7 @@ public class PhotosDetailActivity extends AppCompatActivity {
 //        photoAlbumReference = firebaseDatabase.getReference().child("Albums");
                  photoAlbumReference
                          .child(userID)
+                         .child(photoID)
                          .child("comments")
                          .push()
                          .setValue(commentsFirebaseItems)

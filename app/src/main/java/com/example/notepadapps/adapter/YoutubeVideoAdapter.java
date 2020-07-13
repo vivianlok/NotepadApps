@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -17,58 +16,55 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notepadapps.ClickedYoutubeActivity;
 import com.example.notepadapps.R;
 import com.example.notepadapps.VideosDetailActivity;
-import com.example.notepadapps.database.PhotosFirebaseItems;
-import com.example.notepadapps.database.VideosFirebaseItems;
+import com.example.notepadapps.database.YoutubeVideosFirebaseItems;
+import com.example.notepadapps.database.YoutubeVideosFirebaseItems;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
+public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapter.ViewHolder> {
 
     //Firebase
     private FirebaseUser currentUser;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference  videosAlbumReference;
+    DatabaseReference  youtubeVideosAlbumReference;
 
 
     Activity activity;
-    List<VideosFirebaseItems> VideosFirebaseItemsList;
+    List<YoutubeVideosFirebaseItems> YoutubeVideosFirebaseItemsList;
     View view;
 
 
-    public VideoAdapter(Activity activity, List<VideosFirebaseItems> VideosFirebaseItems) {
+    public YoutubeVideoAdapter(Activity activity, List<YoutubeVideosFirebaseItems> YoutubeVideosFirebaseItems) {
 
-        this.VideosFirebaseItemsList = VideosFirebaseItems;
+        this.YoutubeVideosFirebaseItemsList = YoutubeVideosFirebaseItems;
         this.activity = activity;
 
         firebaseDatabase  = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         currentUser = mFirebaseAuth.getCurrentUser();
-        videosAlbumReference = firebaseDatabase.getReference().child("Videos");
+        youtubeVideosAlbumReference = firebaseDatabase.getReference().child("Youtube_Videos");
 
 
 
 
-    } //End of NotesAdapter Constructor
+    } //End of YoutubeVideoAdapter Constructor
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_videos, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_youtube_video, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     } //End of onCreateViewHolder
@@ -78,22 +74,22 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        final VideosFirebaseItems videosFirebaseItems
-                = VideosFirebaseItemsList.get(position);
+        final YoutubeVideosFirebaseItems dbobject
+                = YoutubeVideosFirebaseItemsList.get(position);
 
-        if (videosFirebaseItems.getVideoUri() != null) {
+        if (dbobject.getYoutubeVideoUri() != null) {
 
             if (currentUser != null){
 
-                Uri uri = Uri.parse(videosFirebaseItems.getVideoUri());
+                Uri uri = Uri.parse(dbobject.getYoutubeVideoUri());
                 holder.videoView.setVideoURI(uri);
                 holder.videoView.start();
         }
         }
 
-        if (videosFirebaseItems.getStatus() != null) {
+        if (dbobject.getStatus() != null) {
 
-            if (videosFirebaseItems.getStatus().equalsIgnoreCase("watched")) {
+            if (dbobject.getStatus().equalsIgnoreCase("watched")) {
 
                 holder.watchedLinearLayout.setVisibility(View.VISIBLE);
             } else {
@@ -104,9 +100,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         }
 
 // set watched
-//        videosAlbumReference
+//        youtubeVideosAlbumReference
 //                .child(currentUser.getUid())
-//                .child(videosFirebaseItems.getVideoID())
+//                .child(YoutubeVideosFirebaseItems.getVideoID())
 //                .addValueEventListener(new ValueEventListener() {
 //                    @Override
 //                    public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,9 +130,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(activity, VideosDetailActivity.class);
-                intent.putExtra("videoId", videosFirebaseItems.getVideoID());
-                intent.putExtra("videoUri", videosFirebaseItems.getVideoUri());
+                Intent intent = new Intent(activity, ClickedYoutubeActivity.class);
+                intent.putExtra("videoId", dbobject.getYoutubeVideoID());
+                intent.putExtra("videoUri", dbobject.getYoutubeVideoUri());
                 activity.startActivity(intent);
             }
         });
@@ -148,7 +144,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
 
-        return VideosFirebaseItemsList.size();
+        return YoutubeVideosFirebaseItemsList.size();
     }
 
 

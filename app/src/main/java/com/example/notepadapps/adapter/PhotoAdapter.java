@@ -94,11 +94,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
         holder.timeTV.setText(currentUser.getUid());
 
+
+
         holder.replyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //when daily check in is clicked
-                Intent goToClickedPhoto = new Intent(activity, PhotoAlbumActivity.class);
+                Intent goToClickedPhoto = new Intent(activity, PhotosDetailActivity.class);
                 goToClickedPhoto.putExtra("photoID", photosFirebaseItems.getPhotoID());
                 goToClickedPhoto.putExtra("photoUri", photosFirebaseItems.getPhotoUri());
                 activity.startActivity(goToClickedPhoto);

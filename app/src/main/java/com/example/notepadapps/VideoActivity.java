@@ -131,7 +131,8 @@ public class VideoActivity extends AppCompatActivity {
                         VideosFirebaseItems videosFirebaseItems
                                 = new VideosFirebaseItems(
                                 videoID,
-                                downloadedUriForVideo
+                                downloadedUriForVideo,
+                                "not watched"
                         );
 
                         videoAlbumReference

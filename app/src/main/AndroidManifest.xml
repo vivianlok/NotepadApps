@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".YoutubeUploadVideoActivity"></activity>
+        <activity android:name=".ClickedYoutubeActivity"></activity>
+        <activity android:name=".YoutubeUploadVideoActivity" />
         <activity android:name=".UploadVideoActivity" />
         <activity android:name=".WelcomeScreenActivity">
             <intent-filter>
@@ -26,6 +27,8 @@
         <activity android:name=".PhotoAlbumActivity" />
         <activity android:name=".VideoAlbumActivity" />
         <activity android:name=".VideoActivity" />
+        <activity android:name=".PhotosDetailActivity" />
+        <activity android:name=".VideosDetailActivity" />
     </application>
 
 </manifest>

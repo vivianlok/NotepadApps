@@ -1,15 +1,16 @@
 package com.example.notepadapps.database;
 
 public class YoutubeVideosFirebaseItems {
-    String youtubeVideoID, youtubeVideoUri, youtubeVideoTitleTextView,youtubeVideoDescriptionTextView;
+    String youtubeVideoID, youtubeVideoUri, youtubeVideoTitleTextView,youtubeVideoDescriptionTextView,status;
 
     public YoutubeVideosFirebaseItems(){}
 
-    public YoutubeVideosFirebaseItems(String youtubeVideoID, String youtubeVideoUri, String youtubeVideoTitleTextView, String youtubeVideoDescriptionTextView) {
+    public YoutubeVideosFirebaseItems(String youtubeVideoID, String youtubeVideoUri, String youtubeVideoTitleTextView, String youtubeVideoDescriptionTextView, String status) {
         this.youtubeVideoID = youtubeVideoID;
         this.youtubeVideoUri = youtubeVideoUri;
         this.youtubeVideoTitleTextView = youtubeVideoTitleTextView;
         this.youtubeVideoDescriptionTextView = youtubeVideoDescriptionTextView;
+        this.status = status;
     }
 
     public String getYoutubeVideoID() {
@@ -42,5 +43,13 @@ public class YoutubeVideosFirebaseItems {
 
     public void setYoutubeVideoDescriptionTextView(String youtubeVideoDescriptionTextView) {
         this.youtubeVideoDescriptionTextView = youtubeVideoDescriptionTextView;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

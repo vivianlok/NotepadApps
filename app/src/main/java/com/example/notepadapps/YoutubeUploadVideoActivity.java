@@ -1,6 +1,10 @@
 package com.example.notepadapps;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,12 +17,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.notepadapps.adapter.VideoAdapter;
+import com.example.notepadapps.adapter.YoutubeVideoAdapter;
 import com.example.notepadapps.database.CommentsFirebaseItems;
+import com.example.notepadapps.database.VideosFirebaseItems;
 import com.example.notepadapps.database.YoutubeVideosFirebaseItems;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,9 +41,12 @@ import java.util.List;
 
 public class YoutubeUploadVideoActivity extends AppCompatActivity {
     // Declare ids from activity_youtube_upload_video.xml
+    String userId;
     Button submitYoutubeVideoButton;
     Button attachmentButton;
     EditText videoTitleET,youtubeDescriptionET;
+    RecyclerView youtubeVideoRecyclerView;
+    RecyclerView.Adapter YoutubeVideoAdapter;
     //
     List<YoutubeVideosFirebaseItems> youtubeVideosFirebaseItemsList = new ArrayList<>();
 
@@ -62,6 +75,19 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
         attachmentButton = findViewById(R.id.attachmentButton);
         videoTitleET = findViewById(R.id.videoTitleET);
         youtubeDescriptionET = findViewById(R.id.youtubeDescriptionET);
+        youtubeVideoRecyclerView = findViewById(R.id.youtubeVideoRecyclerView);
+
+        LinearLayoutManager noteLinearLayoutManager;
+        noteLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        noteLinearLayoutManager.setStackFromEnd(true);
+        youtubeVideoRecyclerView.setLayoutManager(noteLinearLayoutManager);
+
+        if (currentUser != null) {
+
+            userId = currentUser.getUid();
+
+            attachDatabaseReadListener();
+        }
 
         //Initialize firebase database, current user
         firebaseDatabase  = FirebaseDatabase.getInstance();
@@ -143,7 +169,8 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
                 youtubeVideoID,
                 attachment,
                 videoTitleET.getText().toString(),
-                youtubeDescriptionET.getText().toString()
+                youtubeDescriptionET.getText().toString(),
+                "not watched"
         ); //End of saveYoutubeVideoToDatabase
 
         youtubeVideoAlbumReference.child(youtubeVideoID)
@@ -209,27 +236,27 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
                         String youtubeVideoTitleTextView = videoTitleET.toString();
                         String youtubeVideoDescriptionTextView = youtubeDescriptionET.toString();
 
-                        YoutubeVideosFirebaseItems youtubeVideosFirebaseItems
-                                = new YoutubeVideosFirebaseItems(
-                                youtubeVideoID,
-                                youtubeVideoUri,
-                                youtubeVideoTitleTextView,
-                                youtubeVideoDescriptionTextView
-                        );
-
-                        youtubeVideoAlbumReference
-                                .child(currentUser.getUid())
-                                .child(youtubeVideoID)
-                                .setValue(youtubeVideosFirebaseItems)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-
-                                        Toast.makeText(YoutubeUploadVideoActivity.this,
-                                                "DOne Successfully!", Toast.LENGTH_SHORT).show();
-                                        //progressDialog.dismiss();
-                                    }
-                                });
+//                        YoutubeVideosFirebaseItems youtubeVideosFirebaseItems
+//                                = new YoutubeVideosFirebaseItems(
+//                                youtubeVideoID,
+//                                youtubeVideoUri,
+//                                youtubeVideoTitleTextView,
+//                                youtubeVideoDescriptionTextView
+//                        );
+//
+//                        youtubeVideoAlbumReference
+//                                .child(currentUser.getUid())
+//                                .child(youtubeVideoID)
+//                                .setValue(youtubeVideosFirebaseItems)
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//
+//                                        Toast.makeText(YoutubeUploadVideoActivity.this,
+//                                                "DOne Successfully!", Toast.LENGTH_SHORT).show();
+//                                        //progressDialog.dismiss();
+//                                    }
+//                                });
                     }
                 }); //End of   storageReference.getDownloadUrl().addOnSuccessListener
             }
@@ -238,4 +265,50 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
         }
 
     }//onActivityResult end
+    public void attachDatabaseReadListener() {
+        youtubeVideoAlbumReference
+                .child(userId)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        if (snapshot.exists()) {
+
+                            //noOrderTextView.setVisibility(View.GONE);
+
+                            YoutubeVideosFirebaseItems dbobject
+                                    = snapshot.getValue(YoutubeVideosFirebaseItems.class);
+
+                            youtubeVideosFirebaseItemsList.add(dbobject);
+
+                            // set adapter
+                            YoutubeVideoAdapter = new YoutubeVideoAdapter(
+                                    YoutubeUploadVideoActivity.this, youtubeVideosFirebaseItemsList);
+                            youtubeVideoRecyclerView.setAdapter(YoutubeVideoAdapter);
+                            YoutubeVideoAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    } //attachDatabaseReadListener
 } //End of YoutubeUploadVideoActivity Class
