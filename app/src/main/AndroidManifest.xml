@@ -29,6 +29,7 @@
         <activity android:name=".VideoActivity" />
         <activity android:name=".PhotosDetailActivity" />
         <activity android:name=".VideosDetailActivity" />
+        <activity android:name=".YoutubeAlbumActivity" />
     </application>
 
 </manifest>

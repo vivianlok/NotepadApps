@@ -57,7 +57,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         goToYouTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToYouTubeButton = new Intent(WelcomeScreenActivity.this, YoutubeUploadVideoActivity.class);
+                Intent goToYouTubeButton = new Intent(WelcomeScreenActivity.this, YoutubeAlbumActivity.class);
                 startActivity(goToYouTubeButton);
             }
         });

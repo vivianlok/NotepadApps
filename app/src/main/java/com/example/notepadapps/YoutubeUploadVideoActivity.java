@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.notepadapps.adapter.VideoAdapter;
-import com.example.notepadapps.adapter.YoutubeVideoAdapter;
 import com.example.notepadapps.database.CommentsFirebaseItems;
 import com.example.notepadapps.database.VideosFirebaseItems;
 import com.example.notepadapps.database.YoutubeVideosFirebaseItems;
@@ -75,12 +74,12 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
         attachmentButton = findViewById(R.id.attachmentButton);
         videoTitleET = findViewById(R.id.videoTitleET);
         youtubeDescriptionET = findViewById(R.id.youtubeDescriptionET);
-        youtubeVideoRecyclerView = findViewById(R.id.youtubeVideoRecyclerView);
-
-        LinearLayoutManager noteLinearLayoutManager;
-        noteLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
-        noteLinearLayoutManager.setStackFromEnd(true);
-        youtubeVideoRecyclerView.setLayoutManager(noteLinearLayoutManager);
+//        youtubeVideoRecyclerView = findViewById(R.id.youtubeVideoRecyclerView);
+//
+//        LinearLayoutManager noteLinearLayoutManager;
+//        noteLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+//        noteLinearLayoutManager.setStackFromEnd(true);
+//        youtubeVideoRecyclerView.setLayoutManager(noteLinearLayoutManager);
 
         if (currentUser != null) {
 
@@ -281,11 +280,11 @@ public class YoutubeUploadVideoActivity extends AppCompatActivity {
 
                             youtubeVideosFirebaseItemsList.add(dbobject);
 
-                            // set adapter
-                            YoutubeVideoAdapter = new YoutubeVideoAdapter(
-                                    YoutubeUploadVideoActivity.this, youtubeVideosFirebaseItemsList);
-                            youtubeVideoRecyclerView.setAdapter(YoutubeVideoAdapter);
-                            YoutubeVideoAdapter.notifyDataSetChanged();
+//                            // set adapter
+//                            VideoAdapter = new VideoAdapter(
+//                                    YoutubeUploadVideoActivity.this, youtubeVideosFirebaseItemsList);
+//                            youtubeVideoRecyclerView.setAdapter(YoutubeVideoAdapter);
+//                            YoutubeVideoAdapter.notifyDataSetChanged();
 
                         }
                     }

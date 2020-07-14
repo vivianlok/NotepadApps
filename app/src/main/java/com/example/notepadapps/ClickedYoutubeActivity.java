@@ -72,7 +72,7 @@ public class ClickedYoutubeActivity extends AppCompatActivity {
             videoUri = getIntents.getStringExtra("videoUri");
 
             youtubeVideosReference
-                    .child(userID)
+                    .child(videoId)
                     .child("status")
                     .setValue("watched");
 

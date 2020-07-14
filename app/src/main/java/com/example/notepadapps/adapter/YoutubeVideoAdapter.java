@@ -44,7 +44,8 @@ public class YoutubeVideoAdapter extends RecyclerView.Adapter<YoutubeVideoAdapte
     View view;
 
 
-    public YoutubeVideoAdapter(Activity activity, List<YoutubeVideosFirebaseItems> YoutubeVideosFirebaseItems) {
+    public YoutubeVideoAdapter(Activity activity,
+                               List<YoutubeVideosFirebaseItems> YoutubeVideosFirebaseItems) {
 
         this.YoutubeVideosFirebaseItemsList = YoutubeVideosFirebaseItems;
         this.activity = activity;

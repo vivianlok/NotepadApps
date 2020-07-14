@@ -57,7 +57,7 @@ public class VideosDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_details);
+        setContentView(R.layout.activity_videos_details);
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();

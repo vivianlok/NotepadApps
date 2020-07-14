@@ -72,6 +72,7 @@
         android:layout_alignParentBottom="true">
         <EditText
             android:id="@+id/commentEditText"
+            android:background="@color/gray_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
